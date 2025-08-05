@@ -2,6 +2,9 @@
 
 import logging
 import sys
+import os
+from datetime import datetime
+from logging.handlers import RotatingFileHandler
 from typing import Annotated, Any, ClassVar, Union
 
 import structlog
@@ -40,6 +43,10 @@ class LoggingConfig(BaseSettings):
     pad_event: int = Field(default=20, ge=0, le=50)
     use_json: bool = Field(default=False)
     log_prefix: str = Field(default="")
+    log_to_file: bool = Field(default=True)  # Always log to file
+    logs_dir: str = Field(default="logs")
+    max_file_size: int = Field(default=10485760)  # 10MB
+    backup_count: int = Field(default=5)
 
     model_config = SettingsConfigDict(
         case_sensitive=False,
@@ -107,8 +114,29 @@ class Logger:
         # Ensure root logger is configured
         root_logger = logging.getLogger()
         if not root_logger.handlers:
-            handler = logging.StreamHandler(sys.stderr)
-            root_logger.addHandler(handler)
+            # Console handler
+            console_handler = logging.StreamHandler(sys.stderr)
+            root_logger.addHandler(console_handler)
+            
+            # File handler for JSON logs
+            if self.config.log_to_file:
+                os.makedirs(self.config.logs_dir, exist_ok=True)
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                log_filename = f"{timestamp}_{self.name.replace('.', '_')}_json.log"
+                log_filepath = os.path.join(self.config.logs_dir, log_filename)
+                
+                file_handler = RotatingFileHandler(
+                    log_filepath,
+                    maxBytes=self.config.max_file_size,
+                    backupCount=self.config.backup_count
+                )
+                root_logger.addHandler(file_handler)
+                
+                # Log the file location using a simple formatter
+                temp_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+                console_handler.setFormatter(temp_formatter)
+                root_logger.info(f"JSON log file created: {log_filepath}")
+            
             root_logger.setLevel(self.config.log_level)
 
         structlog.configure(
@@ -131,10 +159,37 @@ class Logger:
         logger = logging.getLogger(self.name)
 
         if not logger.handlers:
-            handler = logging.StreamHandler(sys.stderr)
-            formatter = CustomFormatter(log_prefix=self.config.log_prefix)
-            handler.setFormatter(formatter)
-            logger.addHandler(handler)
+            # Console handler
+            console_handler = logging.StreamHandler(sys.stderr)
+            console_formatter = CustomFormatter(log_prefix=self.config.log_prefix)
+            console_handler.setFormatter(console_formatter)
+            logger.addHandler(console_handler)
+            
+            # File handler - always enabled
+            if self.config.log_to_file:
+                # Create logs directory if it doesn't exist
+                os.makedirs(self.config.logs_dir, exist_ok=True)
+                
+                # Generate filename with datetime prefix
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                log_filename = f"{timestamp}_{self.name.replace('.', '_')}.log"
+                log_filepath = os.path.join(self.config.logs_dir, log_filename)
+                
+                file_handler = RotatingFileHandler(
+                    log_filepath,
+                    maxBytes=self.config.max_file_size,
+                    backupCount=self.config.backup_count
+                )
+                file_formatter = logging.Formatter(
+                    fmt="%(asctime)s | %(name)s | %(levelname)s | %(message)s",
+                    datefmt="%Y-%m-%d %H:%M:%S"
+                )
+                file_handler.setFormatter(file_formatter)
+                logger.addHandler(file_handler)
+                
+                # Log the file location
+                logger.info(f"Log file created: {log_filepath}")
+            
             logger.setLevel(self.config.log_level)
             logger.propagate = False
 
