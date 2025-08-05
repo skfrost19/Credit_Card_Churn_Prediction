@@ -5,6 +5,25 @@ from core.logger import get_logger
 # Initialize logger
 logger = get_logger(__name__)
 
+def detect_outliers_iqr(df, column):
+    """
+    Detect outliers using the Interquartile Range (IQR) method.
+    
+    Args:
+        df (pd.DataFrame): Input dataframe
+        column (str): Column name to check for outliers
+    
+    Returns:
+        pd.DataFrame: Rows containing outliers in the specified column
+    """
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
+    return outliers
+
 def load_data_from_source(source_path, source_type='csv', **kwargs):
     """
     Load data from various sources (CSV, database, etc.).
@@ -156,8 +175,37 @@ def preprocess_data(input_path=None, output_path=None, skip_if_exists=True, sour
     churn_dist_after = df['Churn'].value_counts()
     logger.info(f"Churn distribution after removing class 2:\n{churn_dist_after}")
     
+    # Check using IQR for outliers in numerical columns
+    logger.info("Detecting outliers using IQR method...")
+    
+    numerical_outlier_cols = ['Balance', 'EstimatedSalary', 'Age', 'Tenure']
+    outliers_info = {}
+    all_outlier_indices = set()
+    
+    for col in numerical_outlier_cols:
+        if col in df.columns:
+            outliers = detect_outliers_iqr(df, col)
+            outliers_info[col] = outliers
+            all_outlier_indices.update(outliers.index)
+            logger.info(f"Outliers in {col}: {len(outliers)} rows")
+            if len(outliers) > 0:
+                logger.debug(f"Outlier indices for {col}: {list(outliers.index)}")
+    
+    logger.info(f"Total number of unique outlier indices: {len(all_outlier_indices)}")
+    
+    # Log detailed outlier information
+    for col, outliers in outliers_info.items():
+        if len(outliers) > 0:
+            logger.info(f"Outliers in {col}:\n{outliers[[col]].describe()}")
+    
+    # Remove outliers
+    rows_before_outlier_removal = len(df)
+    df = df.drop(index=all_outlier_indices)
+    rows_removed_outliers = rows_before_outlier_removal - len(df)
+    logger.info(f"Removed {rows_removed_outliers} outlier rows")
+    
     # Print final data info
-    logger.info(f"Final dataset shape: {df.shape}")
+    logger.info(f"Final dataset shape after outlier removal: {df.shape}")
     
     # Create output directory if it doesn't exist
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
