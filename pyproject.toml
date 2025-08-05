@@ -18,6 +18,8 @@ dependencies = [
     "plotly>=5.15.0",
     "python-dotenv>=1.0.0",
     "pandera>=0.15.2",
+    "ipykernel>=6.30.1",
+    "fastparquet>=2024.11.0",
 ]
 
 [project.scripts]
