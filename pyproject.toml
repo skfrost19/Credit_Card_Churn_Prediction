@@ -18,6 +18,8 @@ dependencies = [
     "plotly>=5.15.0",
     "python-dotenv>=1.0.0",
     "pandera>=0.15.2",
+    "structlog>=25.4.0",
+    "pydantic-settings>=2.10.1",
 ]
 
 [project.scripts]
