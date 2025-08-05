@@ -1,4 +1,5 @@
 # .gitignore for EXL Credit Card Churn Prediction Project
+logs/
 
 # Python
 __pycache__/
