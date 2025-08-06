@@ -146,7 +146,7 @@ class ChurnModelTrainer:
         Comprehensive model evaluation.
         
         Args:
-            model: Model to evaluate (uses best_model if None)
+            model: Model to evaluate
             save_plots (bool): Whether to save evaluation plots
         
         Returns:
@@ -285,7 +285,7 @@ class ChurnModelTrainer:
         Save the trained model and metadata.
         
         Args:
-            model: Model to save (uses best_model if None)
+            model: Model to save
             model_name (str): Name for the saved model
         """
         logger.info("Saving trained model...")
@@ -419,7 +419,7 @@ def train_churn_model(data_path=None, data=None, models_dir='models'):
         trainer.save_model()
         
         results = {
-            'model': trainer.best_model if trainer.best_model else trainer.model,
+            'model': trainer.model,
             'metrics': metrics,
             'training_results': trainer.training_results
         }
