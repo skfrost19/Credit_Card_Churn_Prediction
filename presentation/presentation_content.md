@@ -57,10 +57,10 @@
 - **Behavioral:** Tenure, NumOfProducts, HasCrCard, IsActiveMember
 
 ### EDA Insights
-**[Image Placeholder: visualisations/churn_distribution.png]**
+**[Image Placeholder: presentation/plots/churn_distribution.png]**
 - Churn rate analysis and distribution
 
-**[Image Placeholder: visualisations/age_gender_churn_analysis.png]**
+**[Image Placeholder: presentation/plots/age_distribution_by_churn.png]**
 - Age and gender patterns in churn behavior
 
 ---
@@ -69,15 +69,15 @@
 
 ### Financial Behavior Analysis
 
-**[Image Placeholder: visualisations/balance_salary_distributions.png]**
+**[Image Placeholder: presentation/plots/balance_distribution_by_churn.png]**
 - Account balance and salary distribution patterns
 - Impact on churn probability
 
-**[Image Placeholder: visualisations/product_credit_active_analysis.png]**
+**[Image Placeholder: presentation/plots/products_churn_rate.png]**
 - Product usage and credit card ownership analysis
 - Active membership correlation with retention
 
-**[Image Placeholder: visualisations/tenure_patterns.png]**
+**[Image Placeholder: presentation/plots/tenure_distribution_by_churn.png]**
 - Customer tenure patterns and loyalty analysis
 - Relationship between tenure and churn risk
 
@@ -87,7 +87,7 @@
 
 ### Correlation Analysis
 
-**[Image Placeholder: visualisations/correlation_heatmap.png]**
+**[Image Placeholder: presentation/plots/correlation_heatmap.png]**
 - Feature correlation matrix
 - Identification of multicollinearity
 - Feature selection insights
@@ -109,24 +109,18 @@
 
 ### Preprocessing Steps Implemented
 
-```python
-# Log Evidence from: logs/20250807_103142_src_data_preprocessing.log
 ✓ Data validation and quality checks
 ✓ Missing value handling
 ✓ Outlier detection and treatment
 ✓ Data type optimization
-```
 
 ### Feature Engineering Process
 
-```python
-# Log Evidence from: logs/20250807_103142_src_feature_engineering.log
 ✓ Created BalancePerProduct ratio
 ✓ Generated TenureAgeRatio metric
 ✓ Applied age categorization binning
 ✓ One-hot encoding for categorical variables
 ✓ Standard scaling for numerical features
-```
 
 ### Data Quality Metrics
 - **Completeness:** 100% (no missing values)
@@ -139,8 +133,6 @@
 
 ### Training Process
 
-```python
-# Training Results from: logs/20250807_103144_src_model_trainer.log
 Training set shape: (794, 16)
 Test set shape: (199, 16)
 
@@ -151,13 +143,12 @@ Training target distribution:
 Test target distribution:
 - Churn=0: 104 customers (52.3%)
 - Churn=1: 95 customers (47.7%)
-```
 
 ### Model Selection
 - **Algorithm:** Random Forest Classifier
 - **Rationale:** Handles mixed data types, provides feature importance
 - **Cross-validation:** 5-fold CV for robust evaluation
-- **Hyperparameter tuning:** Grid search optimization
+- **Parameters:** Default Random Forest parameters with balanced class weights
 
 ---
 
@@ -165,17 +156,17 @@ Test target distribution:
 
 ### Performance Metrics
 
-**[Image Placeholder: evaluation_plots/confusion_matrix.png]**
+**[Image Placeholder: presentation/plots/confusion_matrix.png]**
 - Confusion matrix showing classification results
 - Precision, Recall, F1-score analysis
 
-**[Image Placeholder: evaluation_plots/roc_curve.png]**
+**[Image Placeholder: presentation/plots/roc_curve.png]**
 - ROC curve and AUC score
 - Model discriminative capability
 
 ### Key Performance Results
-- **Training Accuracy:** 100% (from logs)
-- **Test Accuracy:** 64.3% (from logs)
+- **Training Accuracy:** 100%
+- **Test Accuracy:** 64.3%
 - **Cross-validation Score:** [From model evaluation]
 - **AUC Score:** [From ROC analysis]
 
@@ -185,27 +176,25 @@ Test target distribution:
 
 ### Top Feature Contributors
 
-```python
-# Feature Importance from: logs/20250807_103144_src_model_trainer.log
-Top 10 Feature Importances:
-1. EstimatedSalary: 19.72%
-2. TenureAgeRatio: 17.70%
-3. Age: 13.89%
-4. Tenure: 11.16%
-5. BalancePerProduct: 9.67%
-6. Balance: 9.31%
-7. NumOfProducts: 8.11%
-8. Gender_Male: 3.14%
-9. AgeCategory_Middle: 1.72%
-10. AgeCategory_Adult: 1.48%
-```
+**[Image Placeholder: presentation/plots/feature_importance.png]**
 
-**[Image Placeholder: evaluation_plots/feature_importance.png]**
+### Feature Importance Rankings
+1. **EstimatedSalary:** 19.72% - Primary driver of churn decisions
+2. **TenureAgeRatio:** 17.70% - Engineered feature showing customer lifecycle
+3. **Age:** 13.89% - Customer demographic factor
+4. **Tenure:** 11.16% - Customer loyalty indicator
+5. **BalancePerProduct:** 9.67% - Financial engagement metric
+6. **Balance:** 9.31% - Account activity level
+7. **NumOfProducts:** 8.11% - Product portfolio size
+8. **Gender_Male:** 3.14% - Demographic factor
+9. **AgeCategory_Middle:** 1.72% - Age segmentation
+10. **AgeCategory_Adult:** 1.48% - Age segmentation
 
 ### Business Insights
-- **Salary** is the strongest predictor
+- **Salary** is the strongest predictor of churn behavior
 - **Engineered features** (TenureAgeRatio, BalancePerProduct) highly valuable
 - **Demographics** less influential than financial behavior
+- **Product engagement** plays a moderate role in retention
 
 ---
 
@@ -228,13 +217,11 @@ Data Input → Preprocessing → Feature Engineering → Model Training → Pred
 - **Error Handling:** Robust failure management
 
 ### Artifact Management
-```python
-# Model Artifacts Generated:
+Model Artifacts Generated:
 ✓ random_forest_churn_model.pkl
 ✓ encoding_info.pkl
 ✓ all_scalers.pkl
 ✓ processing_metadata.pkl
-```
 
 ---
 
@@ -242,11 +229,9 @@ Data Input → Preprocessing → Feature Engineering → Model Training → Pred
 
 ### Flask REST API Architecture
 
-```python
-# API Endpoints:
+API Endpoints:
 GET  /          # Health check endpoint
 POST /predict   # Churn prediction endpoint
-```
 
 ### API Features
 - **Input Validation:** Comprehensive data validation
@@ -338,14 +323,12 @@ POST /predict   # Churn prediction endpoint
 
 ### Comprehensive Logging System
 
-```python
-# Log Files Generated:
+Log Files Generated:
 ✓ src_eda.log           # EDA execution logs
 ✓ src_data_preprocessing.log  # Data processing logs
 ✓ src_feature_engineering.log # Feature engineering logs
 ✓ src_model_trainer.log       # Model training logs
 ✓ src_pipeline.log           # Pipeline execution logs
-```
 
 ### Monitoring Capabilities
 - **Real-time Logging:** Structured logging across all components
