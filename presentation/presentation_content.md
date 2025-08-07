@@ -14,9 +14,9 @@
 - Complete ML pipeline for predicting customer churn
 - Flask backend API with prediction endpoints
 - Streamlit frontend for user interaction
-- Cloud deployment on AWS EC2
+- Deployment on github codespaces
 
-**Technologies:** Python, scikit-learn, Flask, Streamlit, AWS EC2
+**Technologies:** Python, scikit-learn, Flask, Streamlit, GitHub Codespaces
 
 **Presenter:** Shahil Kumar 
 **Date:** 08 August 2025
@@ -65,7 +65,22 @@
 
 ---
 
-## Slide 4: Data Exploration - Financial Patterns
+## Slide 4: Data Cleaning & Quality Issues
+
+### Initial Data Inconsistencies
+- **Missing Values:** Several columns contained null values that required imputation.
+- **Inconsistent 'Churn' values:** The target column had multiple representations for churn, including `2.0`, `2`, and `'Maybe'`, which needed standardization.
+- **Categorical Data Issues:** Features like 'Gender' had extra whitespace, and 'HasCrCard'/'IsActiveMember' had mixed data types.
+
+### Data Cleaning Steps
+1.  **Handled Missing Values:** Filled with mean for numerical and mode for categorical features.
+2.  **Standardized Target Variable:** Mapped all churn variations to `0` (No Churn) or `1` (Churn), and removed ambiguous entries.
+3.  **Cleaned Categorical Features:** Trimmed whitespace and enforced consistent data types.
+4.  **Outlier Removal:** Applied the IQR method to identify and remove outliers from key numerical columns, ensuring data quality.
+
+---
+
+## Slide 5: Data Exploration - Financial Patterns
 
 ### Financial Behavior Analysis
 
@@ -83,7 +98,7 @@
 
 ---
 
-## Slide 5: Feature Correlation & Relationships
+## Slide 6: Feature Correlation & Relationships
 
 ### Correlation Analysis
 
@@ -105,7 +120,7 @@
 
 ---
 
-## Slide 6: Data Preprocessing Pipeline
+## Slide 7: Data Preprocessing Pipeline
 
 ### Preprocessing Steps Implemented
 
@@ -129,7 +144,7 @@
 
 ---
 
-## Slide 7: Model Training & Selection
+## Slide 8: Model Training & Selection
 
 ### Training Process
 
@@ -152,7 +167,7 @@ Test target distribution:
 
 ---
 
-## Slide 8: Model Performance & Evaluation
+## Slide 9: Model Performance & Evaluation
 
 ### Performance Metrics
 
@@ -172,7 +187,7 @@ Test target distribution:
 
 ---
 
-## Slide 9: Feature Importance Analysis
+## Slide 10: Feature Importance Analysis
 
 ### Top Feature Contributors
 
@@ -198,7 +213,7 @@ Test target distribution:
 
 ---
 
-## Slide 10: ML Pipeline Architecture
+## Slide 11: ML Pipeline Architecture
 
 ### Pipeline Components
 
@@ -212,12 +227,12 @@ Data Input → Preprocessing → Feature Engineering → Model Training → Pred
 ### Pipeline Features
 - **Modular Design:** Independent, reusable components
 - **Configuration-Driven:** TOML-based settings
-- **Multi-Source Support:** CSV, MySQL, PostgreSQL, SQLite
+- **Multi-Source Support:** Easily switch between CSV and SQL databases (MySQL, PostgreSQL, SQLite) by updating a `.env` file with connection details.
 - **Comprehensive Logging:** Full execution tracking
 - **Error Handling:** Robust failure management
 
 ### Artifact Management
-Model Artifacts Generated:
+Model Artifacts Generated and Serialized using `pickle`:
 ✓ random_forest_churn_model.pkl
 ✓ encoding_info.pkl
 ✓ all_scalers.pkl
@@ -225,7 +240,7 @@ Model Artifacts Generated:
 
 ---
 
-## Slide 11: Backend API Development
+## Slide 12: Backend API Development
 
 ### Flask REST API Architecture
 
@@ -261,7 +276,7 @@ POST /predict   # Churn prediction endpoint
 
 ---
 
-## Slide 12: Frontend User Interface
+## Slide 13: Frontend User Interface
 
 ### Streamlit Web Application
 
@@ -286,23 +301,22 @@ POST /predict   # Churn prediction endpoint
 
 ---
 
-## Slide 13: Cloud Architecture on AWS EC2
+## Slide 14: Deployment Architecture on GitHub Codespaces
 
 ### Deployment Architecture
 
 ```
                     Internet
                        |
-                   [Load Balancer]
+                 [GitHub Codespaces]
                        |
               ┌─────────┴─────────┐
               │                   │
-          [EC2 Instance]      [EC2 Instance]
          ┌─────────────────┐ ┌─────────────────┐
          │ Frontend (8501) │ │ Backend (5000)  │
          │   Streamlit     │ │    Flask API    │
          │                 │ │                 │
-         │ tmux session    │ │ tmux session    │
+         │ Terminal 1      │ │ Terminal 2      │
          └─────────────────┘ └─────────────────┘
               │                   │
               └─────────┬─────────┘
@@ -312,14 +326,14 @@ POST /predict   # Churn prediction endpoint
 ```
 
 ### Infrastructure Components
-- **EC2 Instances:** Ubuntu servers with Python environment
-- **tmux Sessions:** Process management for frontend/backend
-- **Security Groups:** Configured for ports 5000, 8501
-- **Storage:** EBS volumes for model artifacts and logs
+- **GitHub Codespaces:** Cloud development environment with full VS Code experience
+- **Multiple Terminals:** Separate terminals for frontend/backend processes
+- **Port Forwarding:** Automatic port forwarding for ports 5000, 8501
+- **Integrated Storage:** Persistent storage for model artifacts and logs within the codespace
 
 ---
 
-## Slide 14: Monitoring & Operations
+## Slide 15: Monitoring & Operations
 
 ### Comprehensive Logging System
 
@@ -329,6 +343,13 @@ Log Files Generated:
 ✓ src_feature_engineering.log # Feature engineering logs
 ✓ src_model_trainer.log       # Model training logs
 ✓ src_pipeline.log           # Pipeline execution logs
+
+### Sample Log Output
+```
+2025-08-07 12:18:04,INFO,src_data_preprocessing,Data preprocessing started.
+2025-08-07 12:18:04,INFO,src_data_preprocessing,Missing values handled successfully.
+2025-08-07 12:18:05,INFO,src_feature_engineering,Feature engineering completed.
+```
 
 ### Monitoring Capabilities
 - **Real-time Logging:** Structured logging across all components
@@ -350,12 +371,12 @@ Log Files Generated:
 
 ---
 
-## Slide 15: Results & Future Enhancements
+## Slide 16: Results & Future Enhancements
 
 ### Project Achievements
 ✅ **Successful Model Development:** Random Forest with 64.3% test accuracy  
 ✅ **Complete Web Application:** Full-stack solution with API and UI  
-✅ **Cloud Deployment:** Production-ready deployment on AWS EC2  
+✅ **Cloud Deployment:** Production-ready deployment on GitHub Codespaces  
 ✅ **Comprehensive Logging:** Full execution tracking and monitoring  
 ✅ **Multi-source Data Support:** Flexible data input options  
 
@@ -388,6 +409,6 @@ Log Files Generated:
 - GitHub: [Repository Link]
 
 **Resources:**
-- Live Demo: [EC2 Instance URL]
+- Live Demo: [GitHub Codespaces URL]
 - Documentation: Available in project repository
 - API Documentation: Swagger/OpenAPI specs
