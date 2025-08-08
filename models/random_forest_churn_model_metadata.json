@@ -1,0 +1,167 @@
+{
+  "model_name": "random_forest_churn_model",
+  "model_type": "RandomForestClassifier",
+  "training_date": "2025-08-07T10:31:47.880492",
+  "feature_names": [
+    "Age",
+    "Tenure",
+    "Balance",
+    "NumOfProducts",
+    "HasCrCard",
+    "IsActiveMember",
+    "EstimatedSalary",
+    "BalancePerProduct",
+    "TenureAgeRatio",
+    "Gender_Male",
+    "AgeCategory_Adult",
+    "AgeCategory_Middle",
+    "AgeCategory_Senior",
+    "BalanceCategory_Low",
+    "BalanceCategory_Medium",
+    "BalanceCategory_High"
+  ],
+  "training_shape": [
+    794,
+    16
+  ],
+  "test_shape": [
+    199,
+    16
+  ],
+  "model_parameters": {
+    "bootstrap": true,
+    "ccp_alpha": 0.0,
+    "class_weight": null,
+    "criterion": "gini",
+    "max_depth": null,
+    "max_features": "sqrt",
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 100,
+    "n_jobs": -1,
+    "oob_score": false,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "training_results": {
+    "evaluation_metrics": {
+      "train_accuracy": 1.0,
+      "test_accuracy": 0.6432160804020101,
+      "precision": 0.6538461538461539,
+      "recall": 0.5368421052631579,
+      "f1_score": 0.5895953757225434,
+      "roc_auc": 0.6980263157894737,
+      "cv_f1_mean": 0.5746177293646939,
+      "cv_f1_std": 0.024006632441260927,
+      "classification_report": {
+        "0": {
+          "precision": 0.6363636363636364,
+          "recall": 0.7403846153846154,
+          "f1-score": 0.6844444444444444,
+          "support": 104.0
+        },
+        "1": {
+          "precision": 0.6538461538461539,
+          "recall": 0.5368421052631579,
+          "f1-score": 0.5895953757225434,
+          "support": 95.0
+        },
+        "accuracy": 0.6432160804020101,
+        "macro avg": {
+          "precision": 0.6451048951048951,
+          "recall": 0.6386133603238866,
+          "f1-score": 0.6370199100834939,
+          "support": 199.0
+        },
+        "weighted avg": {
+          "precision": 0.644709561794989,
+          "recall": 0.6432160804020101,
+          "f1-score": 0.6391647382706725,
+          "support": 199.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          77,
+          27
+        ],
+        [
+          44,
+          51
+        ]
+      ],
+      "feature_importance": [
+        {
+          "feature": "EstimatedSalary",
+          "importance": 0.1971610109469251
+        },
+        {
+          "feature": "TenureAgeRatio",
+          "importance": 0.17697847690855895
+        },
+        {
+          "feature": "Age",
+          "importance": 0.1388511575794403
+        },
+        {
+          "feature": "Tenure",
+          "importance": 0.11157473322771268
+        },
+        {
+          "feature": "BalancePerProduct",
+          "importance": 0.09667320540656726
+        },
+        {
+          "feature": "Balance",
+          "importance": 0.0931271174420088
+        },
+        {
+          "feature": "NumOfProducts",
+          "importance": 0.08110267207582471
+        },
+        {
+          "feature": "Gender_Male",
+          "importance": 0.031416315582490605
+        },
+        {
+          "feature": "AgeCategory_Middle",
+          "importance": 0.01717919521366803
+        },
+        {
+          "feature": "AgeCategory_Adult",
+          "importance": 0.014821124357369217
+        },
+        {
+          "feature": "AgeCategory_Senior",
+          "importance": 0.012359408689219984
+        },
+        {
+          "feature": "BalanceCategory_Low",
+          "importance": 0.010949583794234524
+        },
+        {
+          "feature": "BalanceCategory_Medium",
+          "importance": 0.008910091211154056
+        },
+        {
+          "feature": "BalanceCategory_High",
+          "importance": 0.008895907564825866
+        },
+        {
+          "feature": "HasCrCard",
+          "importance": 0.0
+        },
+        {
+          "feature": "IsActiveMember",
+          "importance": 0.0
+        }
+      ]
+    }
+  }
+}
