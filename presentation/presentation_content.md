@@ -1,5 +1,9 @@
 # Credit Card Churn Prediction System
-## End-to-End Machine Learning Solution with Web Interface
+## End-to-End Mach- Outlier Removal:** Applied the IQR method to identify and remove outliers from key numerical columns, ensuring data quality.
+
+---
+
+## Slide 4: Data Exploration - Financial Patternsearning Solution with Web Interface
 
 **EXL Training Capstone Project**
 
@@ -23,28 +27,7 @@
 
 ---
 
-## Slide 2: Problem Statement & Objectives
-
-### Problem Statement
-- **Customer Churn:** Major challenge in credit card industry
-- **Business Impact:** High acquisition costs vs retention costs
-- **Need:** Proactive identification of at-risk customers
-
-### Project Objectives
-1. **Develop** accurate churn prediction model
-2. **Build** scalable ML pipeline with proper logging
-3. **Create** user-friendly web interface
-4. **Deploy** solution on cloud infrastructure
-5. **Ensure** production-ready system with monitoring
-
-### Success Metrics
-- Model accuracy > 80%
-- Real-time prediction capability
-- Comprehensive logging and monitoring
-
----
-
-## Slide 3: Dataset Overview & Exploratory Data Analysis
+## Slide 2: Dataset Overview & Exploratory Data Analysis
 
 ### Dataset Characteristics
 - **Source:** Credit card customer data
@@ -65,7 +48,7 @@
 
 ---
 
-## Slide 4: Data Cleaning & Quality Issues
+## Slide 3: Data Cleaning & Quality Issues
 
 ### Initial Data Inconsistencies
 - **Missing Values:** Several columns contained null values that required imputation.
@@ -98,7 +81,7 @@
 
 ---
 
-## Slide 6: Feature Correlation & Relationships
+## Slide 5: Feature Correlation & Relationships
 
 ### Correlation Analysis
 
@@ -120,7 +103,7 @@
 
 ---
 
-## Slide 7: Data Preprocessing Pipeline
+## Slide 6: Data Preprocessing Pipeline
 
 ### Preprocessing Steps Implemented
 
@@ -144,7 +127,7 @@
 
 ---
 
-## Slide 8: Model Training & Selection
+## Slide 7: Model Training & Selection
 
 ### Training Process
 
@@ -167,7 +150,7 @@ Test target distribution:
 
 ---
 
-## Slide 9: Model Performance & Evaluation
+## Slide 8: Model Performance & Evaluation
 
 ### Performance Metrics
 
@@ -187,7 +170,7 @@ Test target distribution:
 
 ---
 
-## Slide 10: Feature Importance Analysis
+## Slide 9: Feature Importance Analysis
 
 ### Top Feature Contributors
 
@@ -213,7 +196,7 @@ Test target distribution:
 
 ---
 
-## Slide 11: ML Pipeline Architecture
+## Slide 10: ML Pipeline Architecture
 
 ### Pipeline Components
 
@@ -240,7 +223,7 @@ Model Artifacts Generated and Serialized using `pickle`:
 
 ---
 
-## Slide 12: Backend API Development
+## Slide 11: Backend API Development
 
 ### Flask REST API Architecture
 
@@ -276,7 +259,7 @@ POST /predict   # Churn prediction endpoint
 
 ---
 
-## Slide 13: Frontend User Interface
+## Slide 12: Frontend User Interface
 
 ### Streamlit Web Application
 
@@ -301,7 +284,7 @@ POST /predict   # Churn prediction endpoint
 
 ---
 
-## Slide 14: Deployment Architecture on GitHub Codespaces
+## Slide 13: Deployment Architecture on GitHub Codespaces
 
 ### Deployment Architecture
 
@@ -333,7 +316,7 @@ POST /predict   # Churn prediction endpoint
 
 ---
 
-## Slide 15: Monitoring & Operations
+## Slide 14: Monitoring & Operations
 
 ### Comprehensive Logging System
 
@@ -371,7 +354,7 @@ Log Files Generated:
 
 ---
 
-## Slide 16: Results & Future Enhancements
+## Slide 15: Results & Future Enhancements
 
 ### Project Achievements
 ✅ **Successful Model Development:** Random Forest with 64.3% test accuracy  
